@@ -1,0 +1,16 @@
+services:
+  api:
+    ports: !override ["127.0.0.1:8011:8000"]
+    environment:
+      PAYMENT_MODE: demo
+      RAZORPAY_KEY_ID: ""
+      RAZORPAY_KEY_SECRET: ""
+      RAZORPAY_WEBHOOK_SECRET: demo_webhook_secret
+      APP_SECRET: isolated-test-only
+      STAFF_PIN: "2468"
+  web:
+    ports: !override ["127.0.0.1:3011:80"]
+    build:
+      args:
+        VITE_API_URL: http://localhost:8011
+        VITE_WS_URL: ws://localhost:8011
